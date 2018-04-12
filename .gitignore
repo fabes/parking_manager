@@ -19,3 +19,4 @@
 
 .byebug_history
 *.vs_code/*
+launch.json
