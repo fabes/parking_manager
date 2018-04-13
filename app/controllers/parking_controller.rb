@@ -14,4 +14,11 @@ class ParkingController < ApplicationController
     }
   end
 
+  def find_parking_spot 
+    available_parking = Level.find_parking_spot({brand: 'Dodge', size: 20, price: 100})
+    render json: {
+      available_parking: available_parking
+    }
+  end 
+
 end

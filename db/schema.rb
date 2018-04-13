@@ -10,26 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180412214121) do
+ActiveRecord::Schema.define(version: 20180413005712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "levels", force: :cascade do |t|
     t.integer "floor_level"
-    t.integer "parking_lot_1", default: 0
-    t.integer "parking_lot_2", default: 0
-    t.integer "parking_lot_3", default: 0
-    t.integer "parking_lot_4", default: 0
-    t.integer "parking_lot_5", default: 0
-    t.integer "parking_lot_6", default: 0
-    t.integer "parking_lot_7", default: 0
-    t.integer "parking_lot_8", default: 0
-    t.integer "parking_lot_9", default: 0
-    t.integer "parking_lot_10", default: 0
-    t.json "special_parking", default: {}
+    t.text "special_parking", default: "{}"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "space_available"
+    t.text "parking", default: "{}"
   end
 
 end
