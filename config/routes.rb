@@ -3,8 +3,11 @@ Rails.application.routes.draw do
   resources :parking do 
     collection do 
       get 'overall-spaces-status'
-      get 'find-parking-spot'
+      post 'find-spot'
+      post 'book-by-size'
+      post 'book-by-spot'
     end 
+
     get 'for-floor-level', on: :member
   end
 end
