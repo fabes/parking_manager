@@ -1,16 +1,8 @@
 class ParkingController < ApplicationController  
-  def overall_spaces_status 
-    parking_spaces = Level.parking_spaces_overview
-    render json:{
-      data: parking_spaces
-    } 
-  end
-
   def for_floor_level
     level = Level.where(floor_level: params[:id]).first
-
     floor_level_parking = JSON.parse(level.parking)
-    #extra this to a method
+
     unassigned_spaces = []
     10.times do |i| 
       if floor_level_parking[i].nil? 
@@ -19,7 +11,7 @@ class ParkingController < ApplicationController
         unassigned_spaces << floor_level_parking[i]
       end
     end
-    #EOF extract
+
     render json: {
       data: unassigned_spaces
     }
