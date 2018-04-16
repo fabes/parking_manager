@@ -13,8 +13,8 @@ class Level < ApplicationRecord
   end
 
   def self.book_parking(vehicle_info) 
-    parking_data = self.where(floor_level: vehicle_info[:parking_spot_level]).first
-    new_parking_data = JSON.parse(parking_data.parking).insert(vehicle_info[:parking_spot] - 1, 1)
+    parking_data = self.find_by(floor_level: vehicle_info[:parking_spot_level].to_i)
+    new_parking_data = JSON.parse(parking_data.parking).insert(vehicle_info[:parking_spot].to_i - 1, 1)
 
     parking_data.parking = new_parking_data
     if new_parking_data.size == 10 
