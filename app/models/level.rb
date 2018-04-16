@@ -1,14 +1,4 @@
 class Level < ApplicationRecord
-  def selected_level 
-    if self 
-      return [
-        parking: self.parking,
-        special_parking: self.special_parking,
-      ]
-    end
-    return nil
-  end
-
   def self.find_parking_spot(for_vehicle) 
     next_parking_spot = 0
     level_with_space = self.where(space_available: true).first
