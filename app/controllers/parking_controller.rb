@@ -45,14 +45,7 @@ class ParkingController < ApplicationController
   end
 
   def book_by_size
-    vehicle_info = allowed_vehicle_params 
-    parking_data = Level.book_parking(vehicle_info)
-
-    if parking_data 
-      render :success
-    else
-      render :bad_request
-    end
+    self.book_by_spot
   end
 
   def book_by_spot 
