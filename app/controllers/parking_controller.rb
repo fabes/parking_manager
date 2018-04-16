@@ -25,11 +25,8 @@ class ParkingController < ApplicationController
     }
   end
 
-  def find_spot 
-    vehicle_info = {
-      brand: params[:brand],
-      size: params[:vehicle_size]
-    }
+  def find_spot
+    vehicle_info = allowed_vehicle_params
 
     sizes_and_costs = {
       10 => 30,
@@ -42,7 +39,7 @@ class ParkingController < ApplicationController
 
     price_for_spot = 0
     sizes_and_costs.each do |k| 
-      price_for_spot = k[1] if k[0] == vehicle_info[:size] 
+      price_for_spot = k[1] if k[0] == vehicle_info[:vehicle_size] 
     end
 
     available_parking = Level.find_parking_spot(vehicle_info)
@@ -87,6 +84,12 @@ class ParkingController < ApplicationController
     else
       render :bad_request
     end
+  end
+
+  private 
+  
+  def allowed_vehicle_params 
+    params.permit(:brand, :vehicle_size)  
   end
 
 end
