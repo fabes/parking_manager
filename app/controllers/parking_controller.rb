@@ -27,15 +27,7 @@ class ParkingController < ApplicationController
 
   def find_spot
     vehicle_info = allowed_vehicle_params
-
-    sizes_and_costs = {
-      10 => 30,
-      15 => 50,
-      20 => 60,
-      25 => 80,
-      30 => 120,
-      45 => 170
-    }
+    sizes_and_costs = vehicle_sizes_costs_list
 
     price_for_spot = 0
     sizes_and_costs.each do |k| 
@@ -53,14 +45,7 @@ class ParkingController < ApplicationController
   end
 
   def book_by_size
-    vehicle_info = {
-      brand: params[:vehicle_brand],
-      size: params[:vehicle_size],
-      price: params[:price_for_parking],
-      spot: params[:parking_spot] - 1,
-      level: params[:parking_spot_level],
-    }
-
+    vehicle_info = allowed_vehicle_params 
     parking_data = Level.book_parking(vehicle_info)
 
     if parking_data 
@@ -71,13 +56,7 @@ class ParkingController < ApplicationController
   end
 
   def book_by_spot 
-    vehicle_info = {
-      brand: params[:vehicle_brand],
-      spot: params[:parking_spot] - 1,
-      level: params[:parking_spot_level],
-    }
-
-    parking_data = Level.book_parking(vehicle_info)
+    parking_data = Level.book_parking(allowed_vehicle_params)
 
     if parking_data 
       render :success
@@ -89,7 +68,13 @@ class ParkingController < ApplicationController
   private 
   
   def allowed_vehicle_params 
-    params.permit(:brand, :vehicle_size)  
+    params.permit(
+      :vehicle_brand, 
+      :vehicle_size, 
+      :price_for_parking,
+      :parking_spot, 
+      :parking_spot_level
+      )  
   end
 
 end

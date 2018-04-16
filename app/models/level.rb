@@ -23,8 +23,8 @@ class Level < ApplicationRecord
   end
 
   def self.book_parking(vehicle_info) 
-    parking_data = self.where(floor_level: vehicle_info[:level]).first
-    new_parking_data = JSON.parse(parking_data.parking).insert(vehicle_info[:spot] - 1, 1)
+    parking_data = self.where(floor_level: vehicle_info[:parking_spot_level]).first
+    new_parking_data = JSON.parse(parking_data.parking).insert(vehicle_info[:parking_spot] - 1, 1)
 
     parking_data.parking = new_parking_data
     if new_parking_data.size == 10 
@@ -34,16 +34,6 @@ class Level < ApplicationRecord
   end
 
   def self.max_profit(vehicles_list)
-    vehicles_list = [
-      { brand: 'dodge', size: 15, price: 50 },
-      { brand: 'dodge', size: 15, price: 50 },
-      { brand: 'dodge', size: 15, price: 50 },
-      { brand: 'audi', size: 20, price: 30 },
-      { brand: 'mercedes', size: 10, price: 100 },
-      { brand: 'jaguar', size: 45, price: 170 },
-      { brand: 'bmw', size: 25, price: 150 },
-    ]
-
     special_parking_spots = []
     max_space = 50
     sorted_arr_by_price = vehicles_list.sort_by{ |v| v[:price] }.reverse
